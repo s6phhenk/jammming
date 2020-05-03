@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import TrackList from './TrackList/TrackList';
+import Tracklist from '../Tracklist/Tracklist';
 import './SearchResults.css';
 
 class SearchResults extends Component {
@@ -10,7 +10,7 @@ class SearchResults extends Component {
     return (
 <div className="SearchResults">
   <h2>Results</h2>
-  <TrackList/>
+  <Tracklist/>
 </div>
 
     )

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import './TrackList.css';
+import './Tracklist.css';
 
 class Tracklist extends Component {
 
@@ -8,7 +8,7 @@ class Tracklist extends Component {
 
         return (
 <div className="TrackList">
-    // You will add a map method that renders a set of Track components
+    {/* // You will add a map method that renders a set of Track components */}
 </div>
         )
     }
