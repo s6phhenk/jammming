@@ -12,7 +12,7 @@ class Track extends Component {
   }
 
   addTrack() {
-    return this.props.onAdd += this.props.track;
+    return this.props.onAdd(this.props.track);
   }
 
   renderAction () {
@@ -20,7 +20,7 @@ class Track extends Component {
       return < button className="Track-action">-</button> 
     } else {
       return <button className="Track-action"
-                      onClick={this.addTrack()}>+</button> 
+                      onClick={this.addTrack}>+</button> 
     }
   }
 
