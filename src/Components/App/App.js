@@ -11,6 +11,8 @@ class App extends Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
 
     this.state = {
       searchResults : [
@@ -56,19 +58,32 @@ class App extends Component {
     this.setState({playlistName : name});
   }
 
+  savePlaylist () {
+    // to get our array of tracks in the playlist
+    let tracks = this.state.playlistTracks ;
+    // über das array von Objekten mappen und nennen jedes Objekt track - von jedem track brauchen wir die URI
+    const trackURIs = tracks.map(track => track.uri);
+  }
+
+  search(term) {
+    console.log(term);
+  }
+
 
   render() {
     return (
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-        <SearchBar/> 
-          <div className="App-playlist">
+        <SearchBar onSearch={this.search}/> 
+          <div className="App-playlist"
+                >
           <SearchResults searchResults={this.state.searchResults}
                           onAdd={this.addTrack}/> 
           <Playlist playlist = {this.state.playlistName}
                     onRemove={this.removeTrack}
-                    onNameChange= {this.updatePlaylistName}/>
+                    onNameChange= {this.updatePlaylistName}
+                    onSave= {this.savePlaylist}/>
         </div>
       </div>
     </div>
