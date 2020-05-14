@@ -34,7 +34,8 @@ class SearchBar extends Component {
    // sobald ein Nutzer etwas in das input Field schreibt, wird die Methode aufgerufen und der state geupdated 
           onSearch={this.handleTermChange}/>
 
-  <button className="SearchButton">SEARCH</button>
+  <button className="SearchButton"
+          onClick={this.search}>SEARCH</button>
 </div>
     )
   }

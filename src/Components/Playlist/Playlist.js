@@ -23,8 +23,7 @@ class Playlist extends Component {
   <input defaultValue={'New Playlist'}
     // sobald ein Nutzer etwas in das input Field schreibt, wird die Methode aufgerufen --> event.target.VALUE
           onChange= {this.handleNameChange}/>
-
-  <Tracklist playlistTracks = {this.props.playlistTracks}
+  <Tracklist tracks = {this.props.playlistTracks}
               onRemove={this.props.onRemove}
               isRemoval={true}/>
               

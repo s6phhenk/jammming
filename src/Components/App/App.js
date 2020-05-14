@@ -25,7 +25,7 @@ class App extends Component {
   addTrack = track => {
     let tracks = this.state.playlistTracks ;
     // wenn sich der Titel bereits in der Playlist befindet, returne nichts
-    if (tracks.find(Savedtrack => Savedtrack.id === track.id )) {
+    if (tracks.find(savedtrack => savedtrack.id === track.id )) {
       return ;
     }
     // ansonsten füge ihn zu der playlist hinzu 
@@ -50,11 +50,13 @@ class App extends Component {
   }
 
   savePlaylist () {
-    Spotify.savePlaylist();
-    // to get our array of tracks in the playlist
-    //let tracks = this.state.playlistTracks ;
-    // über das array von Objekten mappen und nennen jedes Objekt track - von jedem track brauchen wir die URI
-    //const trackURIs = tracks.map(track => track.uri);
+    const trackUris = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
+      });
+    });
   }
 
     search(searchTerm) {
@@ -70,11 +72,10 @@ class App extends Component {
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
         <SearchBar onSearch={this.search}/> 
-          <div className="App-playlist"
-                >
+          <div className="App-playlist" >
           <SearchResults searchResults={this.state.searchResults}
                           onAdd={this.addTrack}/> 
-          <Playlist playlist = {this.state.playlistName}
+          <Playlist playlistName = {this.state.playlistName}
                     playlistTracks={this.state.playlistTracks}
                     onRemove={this.removeTrack}
                     onNameChange= {this.updatePlaylistName}

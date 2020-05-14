@@ -24,11 +24,11 @@ class Track extends Component {
     if (this.props.isRemoval) {
       return < button className="Track-action"
                       onClick={this.removeTrack}>-</button> 
-    } else {
+      } 
       return <button className="Track-action"
                       onClick={this.addTrack}>+</button> 
+    
     }
-  }
 
   render () {
     return (
@@ -39,7 +39,7 @@ class Track extends Component {
   </div>
   {this.renderAction()}
 </div>
-    )
+    );
   }
 
 }
