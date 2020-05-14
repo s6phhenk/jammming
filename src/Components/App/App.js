@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 import './App.css';
 
 class App extends Component {
@@ -15,19 +16,9 @@ class App extends Component {
     this.search = this.search.bind(this);
 
     this.state = {
-      searchResults : [
-        {"name": "name1", "artist": "artist1", "album": "album1", "id": "id1"},
-        {"name": "name2", "artist": "artist2", "album": "album2", "id": "id2"}
-                    ],
-
-      playlistName : "Fümf_dry",
-      
-      playlistTracks : [
-          {"name": "Wieder lila", "artist": "Samra & Capi", "album": "Berlin lebt 2", "id": "id3"}, 
-          {"name": "Rolex", "artist": "Samra & Capi", "album": "Berlin lebt 2", "id": "id4"}, 
-          {"name": "Tilidin", "artist": "Samra & Capi", "album": "Berlin lebt 2", "id": "id5"}, 
-          {"name": "Neymar", "artist": "Capital Bra", "album": "Berlin lebt", "id": "id6"}, 
-        ]
+      searchResults : [],
+      playlistName : "New Playlist",
+      playlistTracks : []
       }
   };
 
@@ -59,16 +50,19 @@ class App extends Component {
   }
 
   savePlaylist () {
+    Spotify.savePlaylist();
     // to get our array of tracks in the playlist
-    let tracks = this.state.playlistTracks ;
+    //let tracks = this.state.playlistTracks ;
     // über das array von Objekten mappen und nennen jedes Objekt track - von jedem track brauchen wir die URI
-    const trackURIs = tracks.map(track => track.uri);
+    //const trackURIs = tracks.map(track => track.uri);
   }
 
-  search(term) {
-    console.log(term);
-  }
-
+    search(searchTerm) {
+    Spotify.search(searchTerm).then(searchResults =>{
+      // this.state.searchResults wird nun auf das Ergebnis des Promises der Spotify API gesetzt 
+      this.setState({searchResults : searchResults});
+    } );
+    }
 
   render() {
     return (
@@ -81,6 +75,7 @@ class App extends Component {
           <SearchResults searchResults={this.state.searchResults}
                           onAdd={this.addTrack}/> 
           <Playlist playlist = {this.state.playlistName}
+                    playlistTracks={this.state.playlistTracks}
                     onRemove={this.removeTrack}
                     onNameChange= {this.updatePlaylistName}
                     onSave= {this.savePlaylist}/>
